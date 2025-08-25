@@ -87,3 +87,20 @@ let clientes = [{
 }]
 
 clientes.forEach(cliente => console.log("Cliente: " + cliente.nombre + " Cantidad de compras: " + cliente.compras.length));
+
+//7)
+function procesarClientes (clientes,callback){
+    callback(clientes);
+}
+
+procesarClientes(clientes,
+    function(clientes){
+    console.log("Clientes: " + clientes.map(cliente => cliente.nombre))
+    }
+);
+
+procesarClientes(clientes,
+    function(clientes){
+        console.log("Total de compras: " + clientes.reduce((acc,cliente) => acc + cliente.compras.length,0))
+    }
+)
