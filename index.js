@@ -104,3 +104,152 @@ procesarClientes(clientes,
         console.log("Total de compras: " + clientes.reduce((acc,cliente) => acc + cliente.compras.length,0))
     }
 )
+//8)
+let numeros = [3,4,2,6,4,1,6,8,45,21,54]; 
+numeros.sort((a,b) => a-b);
+console.log("Descendente: " + numeros);
+console.log("Ascendente: " +numeros.sort((a,b) => b-a));
+
+//9)
+let tienda = {
+    productosTienda: [{
+    id: 1,
+    nombre: "Bananas",
+    precio: 2500,
+    stock: 23
+},
+{
+    id: 2,
+    nombre: "Manzanas",
+    precio: 3500,
+    stock: 14
+},
+{
+    id: 3,
+    nombre: "Palta",
+    precio: 3000,
+    stock: 5
+},
+{
+    id: 4,
+    nombre: "Kiwi",
+    precio: 1000,
+    stock: 3
+},
+{
+    id: 5,
+    nombre: "Naranja",
+    precio: 1500,
+    stock: 424
+}],
+
+vender: function(idProducto,cantidad){
+    let productoBuscado = this.productosTienda.find(producto => producto.id === idProducto);
+    if(!productoBuscado) console.log("Producto no encontrado");
+     else{
+         if(productoBuscado.stock < cantidad) console.log("Stock insuficiente");
+           else{
+                productoBuscado.stock = productoBuscado.stock - cantidad;
+                console.log('Venta realizada');
+               }
+         }
+  }
+}
+
+tienda.vender(1,1);
+//10)
+let carrito = [];
+carrito.push({
+    producto: "Mouse",
+    precioUnitario: 10000,
+    cantidad: 3
+},{
+    producto: "Teclado",
+    precioUnitario: 5000,
+    cantidad: 5
+},
+{
+    producto: "Monitor",
+    precioUnitario: 2000,
+    cantidad: 10
+})
+let totalAPagar = carrito.reduce((acc,producto) => acc + producto.cantidad * producto.precioUnitario,0)
+console.log("Total a pagar: " + totalAPagar);
+let detalleCarrito = carrito.map(p => "Producto: " + p.producto + " Cantidad: " + p.cantidad + " Subtotal: " + p.cantidad*p.precioUnitario);
+console.log(detalleCarrito);
+//11)
+let libros = [{
+  id: 1,
+  titulo: "Cien años de soledad",
+  autor: "Gabriel García Márquez",
+  genero: "Realismo mágico",
+  disponible: true
+},
+{
+  id: 2,
+  titulo: "1984",
+  autor: "George Orwell",
+  genero: "Distopía",
+  disponible: false
+},
+{
+  id: 3,
+  titulo: "El Hobbit",
+  autor: "J.R.R. Tolkien",
+  genero: "Fantasía",
+  disponible: true
+}
+]
+console.log(libros.filter(libro => libro.genero === "Fantasía"));
+let titulosMayuscula = libros.map(libro => libro.titulo.toUpperCase());
+console.log(titulosMayuscula);
+
+let prestarLibro = function(idLibro){
+    let libroBuscado = libros.find(libro => libro.id === idLibro);
+    if(!libroBuscado){
+        console.log('Libro no encontrado');
+    }
+    else if (libroBuscado.disponible){
+        libroBuscado.disponible = false;
+        console.log("Prestamo realizado");
+    }
+}
+prestarLibro(3)
+//12)
+let agenda = {
+  contactos: [
+    { id: 1, nombre: "Ana Pérez", telefono: "1123456789" },
+    { id: 2, nombre: "Luis Gómez", telefono: "1139876543" },
+    { id: 3, nombre: "María López", telefono: "1145678901" }
+  ],
+  agregarContacto: function(contacto){
+    this.contactos.push(contacto);
+  },
+  eliminarContacto: function(id){
+    this.contactos = this.contactos.filter(contacto => contacto.id !== id);
+  },
+  buscarContacto: function(nombre){
+    console.log(this.contactos.find(contacto => contacto.nombre === nombre));
+  },
+  listarContactos: function(){
+    console.log(this.contactos);
+  }
+};
+agenda.agregarContacto({ id: 4, nombre: "Carlos Díaz", telefono: "1154321098" });
+agenda.eliminarContacto(2);
+agenda.buscarContacto("María López");
+agenda.listarContactos();
+//13)
+let alumnos = [
+  { id: 1, nombre: "Juan Pérez", notas: [8, 7, 9] },
+  { id: 2, nombre: "Lucía Gómez", notas: [1, 9, 7] },
+  { id: 3, nombre: "Martín López", notas: [6, 7, 8] }
+];
+let promedioNotas = alumnos.map(alumno => ({
+    nombre: alumno.nombre,
+    promedio: alumno.notas.reduce((acc,nota) => acc + nota,0)/alumno.notas.length,
+    id: alumno.id
+}));
+let aprobados = promedioNotas.filter(alumno => alumno.promedio > 6);
+console.log(aprobados);
+
